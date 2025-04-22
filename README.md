@@ -4,9 +4,15 @@ Una calculadora web simple construida con React (frontend) y Flask (backend).
 
 ## Requisitos Previos
 
-- Node.js (v14 o superior)
-- Python 3.x
-- npm o yarn
+### Para Windows:
+- Node.js (v14 o superior) - [Descargar](https://nodejs.org/)
+- Python 3.x - [Descargar](https://www.python.org/downloads/)
+- Git - [Descargar](https://git-scm.com/download/win)
+
+### Para macOS:
+- Node.js (v14 o superior) - `brew install node`
+- Python 3.x - `brew install python`
+- Git - `brew install git`
 
 ## Estructura del Proyecto
 
@@ -22,43 +28,69 @@ Proyecto_FCI/
 
 ## Configuración del Entorno de Desarrollo
 
-### 1. Configurar el Backend
+### 1. Clonar el Repositorio
 
+```bash
+# Windows y macOS
+git clone <url-del-repositorio>
+cd Proyecto_FCI
+```
+
+### 2. Configurar el Backend
+
+#### En Windows:
+```bash
+# Crear un entorno virtual
+python -m venv venv
+
+# Activar el entorno virtual
+venv\Scripts\activate
+
+# Instalar dependencias
+pip install flask flask-cors
+```
+
+#### En macOS:
 ```bash
 # Crear un entorno virtual
 python3 -m venv venv
 
 # Activar el entorno virtual
-# En Windows:
-venv\Scripts\activate
-# En macOS/Linux:
 source venv/bin/activate
 
 # Instalar dependencias
 pip3 install flask flask-cors
 ```
 
-### 2. Configurar el Frontend
+### 3. Configurar el Frontend
 
 ```bash
-# Navegar al directorio del frontend
+# Windows y macOS
 cd Proyecto_FCI
-
-# Instalar dependencias
 npm install
 ```
 
 ## Ejecutar en Desarrollo
 
-1. Iniciar el Backend:
+### 1. Iniciar el Backend
+
+#### En Windows:
 ```bash
 # En la raíz del proyecto
-source venv/bin/activate  # Si no está activado
+venv\Scripts\activate
+python backend_calculator.py
+```
+
+#### En macOS:
+```bash
+# En la raíz del proyecto
+source venv/bin/activate
 python3 backend_calculator.py
 ```
 
-2. Iniciar el Frontend (en una nueva terminal):
+### 2. Iniciar el Frontend (en una nueva terminal):
 ```bash
+# Windows y macOS
 cd Proyecto_FCI
 npm run dev
 ```
@@ -72,6 +104,7 @@ La aplicación estará disponible en:
 ### Preparar el Frontend para Producción
 
 ```bash
+# Windows y macOS
 cd Proyecto_FCI
 npm run build
 ```
@@ -119,9 +152,16 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
 ### Variables de Entorno
 
-Crear un archivo `.env` en el directorio del frontend:
-```env
-REACT_APP_API_URL=https://tu-backend.com
+#### En Windows:
+```bash
+# Crear archivo .env en el directorio del frontend
+echo REACT_APP_API_URL=https://tu-backend.com > .env
+```
+
+#### En macOS:
+```bash
+# Crear archivo .env en el directorio del frontend
+echo "REACT_APP_API_URL=https://tu-backend.com" > .env
 ```
 
 ## Configuración de Dominio Personalizado
@@ -150,18 +190,37 @@ CORS(app, resources={
 ## Solución de Problemas Comunes
 
 ### Error: "Module not found: 'flask'"
-Asegúrate de:
-1. Tener el entorno virtual activado
-2. Haber instalado las dependencias con pip
-3. Estar usando el Python del entorno virtual
+
+#### En Windows:
+1. Asegúrate de que el entorno virtual esté activado (deberías ver `(venv)` al inicio de la línea de comandos)
+2. Ejecuta: `pip install flask flask-cors`
+3. Si el error persiste, intenta: `python -m pip install flask flask-cors`
+
+#### En macOS:
+1. Asegúrate de que el entorno virtual esté activado (deberías ver `(venv)` al inicio de la línea de comandos)
+2. Ejecuta: `pip3 install flask flask-cors`
+3. Si el error persiste, intenta: `python3 -m pip install flask flask-cors`
 
 ### Error: CORS
 1. Verificar que el backend tenga CORS configurado correctamente
 2. Comprobar que las URLs del frontend y backend coincidan con la configuración CORS
 
 ### Error: "Port already in use"
-1. Verificar que no haya otra instancia del servidor corriendo
-2. Cambiar el puerto en la configuración si es necesario
+#### En Windows:
+```bash
+# Encontrar el proceso usando el puerto
+netstat -ano | findstr :5001
+# Matar el proceso (reemplaza PID con el número de proceso)
+taskkill /PID PID /F
+```
+
+#### En macOS:
+```bash
+# Encontrar el proceso usando el puerto
+lsof -i :5001
+# Matar el proceso (reemplaza PID con el número de proceso)
+kill -9 PID
+```
 
 ## Contribuir
 
